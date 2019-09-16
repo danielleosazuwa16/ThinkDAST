@@ -45,7 +45,17 @@ public class MyArrayList<T> implements List<T> {
 	@Override
 	public boolean add(T element) {
 		// TODO: FILL THIS IN!
-		return false;
+		if (size>=this.array.length) this.resize();
+		this.array[size] = element;
+		size++;
+		return true;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void resize() {
+		T[] copy = (T[]) new Object[this.array.length*2];
+		System.arraycopy(array, 0, copy, 0, array.length);
+		this.array = copy;
 	}
 
 	@Override
@@ -110,7 +120,17 @@ public class MyArrayList<T> implements List<T> {
 
 	@Override
 	public int indexOf(Object target) {
-		// TODO: FILL THIS IN!
+		// TODO: (o==null ? get(i)==null : o.equals(get(i)))
+		if (target == null) {
+			for (int i = 0; i < this.array.length; i++) {
+				if (this.array[i] == null) return i;
+			}
+		} else {
+			for (int i = 0; i < this.array.length; i++) {
+			 if (this.array[i].equals(target)) return i;	
+			}
+		}
+	
 		return -1;
 	}
 
@@ -182,7 +202,14 @@ public class MyArrayList<T> implements List<T> {
 	@Override
 	public T remove(int index) {
 		// TODO: FILL THIS IN!
-		return null;
+		if (index >= this.size) throw new IndexOutOfBoundsException();
+		
+		T obj = this.array[index];
+		for (int i = index; i < this.array.length-1; i++) {
+			this.array[i] = this.array[i+1];
+		}
+		size--;
+		return obj;
 	}
 
 	@Override
@@ -202,7 +229,9 @@ public class MyArrayList<T> implements List<T> {
 	@Override
 	public T set(int index, T element) {
 		// TODO: FILL THIS IN!
-		return null;
+		T obj = this.array[index];
+		this.array[index] = element;
+		return obj;
 	}
 
 	@Override
