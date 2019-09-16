@@ -202,9 +202,7 @@ public class MyArrayList<T> implements List<T> {
 	@Override
 	public T remove(int index) {
 		// TODO: FILL THIS IN!
-		if (index >= this.size) throw new IndexOutOfBoundsException();
-		
-		T obj = this.array[index];
+		T obj = this.get(index);
 		for (int i = index; i < this.array.length-1; i++) {
 			this.array[i] = this.array[i+1];
 		}
@@ -229,7 +227,7 @@ public class MyArrayList<T> implements List<T> {
 	@Override
 	public T set(int index, T element) {
 		// TODO: FILL THIS IN!
-		T obj = this.array[index];
+		T obj = this.get(index);
 		this.array[index] = element;
 		return obj;
 	}
